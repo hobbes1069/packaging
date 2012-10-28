@@ -64,10 +64,10 @@
 %define desktop_vendor  mythtv
 
 # MythTV Version string -- preferably the output from git --describe
-%define vers_string v0.26-alpha-80-gf2cc39d
+%define vers_string v0.26
 
 # Git Revision number and branch
-%define _gitrev 0.0.alpha.80.gf2cc39d
+%define _gitrev v0.26.0-0-g6c3ae8
 %define branch master
 
 #
@@ -345,8 +345,7 @@ Requires:  mythplugins        = %{version}-%{release}
 Requires:  mythtv-themes      = %{version}
 
 Requires:  mysql-server >= 5, mysql >= 5
-# XMLTV is not yet packaged for rpmfusion
-#Requires: xmltv
+Requires:  xmltv
 
 # Generate the required mythtv-frontend-api version string here so we only
 # have to do it once.
@@ -597,13 +596,13 @@ can interact with a known verion.
 %package -n perl-MythTV
 Summary:        Perl bindings for MythTV
 Group:          Development/Languages
-# Wish we could do this:
-#BuildArch:      noarch
+BuildArch:      noarch
 
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(DBD::mysql)
 Requires:       perl(Net::UPnP)
 Requires:       perl(Net::UPnP::ControlPoint)
+Requires:       mythffmpeg
 
 %description -n perl-MythTV
 Provides a perl-based interface to interacting with MythTV.
@@ -1490,6 +1489,10 @@ fi
 ################################################################################
 
 %changelog
+* Sun Oct 28 2012 Richard Shaw <hobbes1069@gmail.com> 0.26-1
+- Add xmltv as requirement. It is available on RPM Fusion.
+- Add mythffmeg as requirement for perl bindings package.
+
 * Thu Aug 09 2012 Chris Petersen <cpetersen@mythtv.org> 0.26-0.1.git
 - rename i810 driver BR to intel
 
